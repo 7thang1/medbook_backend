@@ -23,17 +23,6 @@ app.get("/", (request, response) => {
     response.send("Hello, Server!");
 });
 
-// app.get("/users", (req, res) => {
-//     connection.query('SELECT * FROM user', (error, results) => {
-//     if (error){
-//         console.error('Loi truy van: ', error);
-//         res.status(500).json({message: 'Loi truy van'});
-//         return;
-//     }
-//     res.json(results);
-//     });
-// });
-
 app.use("/api/user", require("./src/routes/userAPI"));
 app.use("/api/doctor", require("./src/routes/doctorAPI"));
 app.use("/api/patient", require("./src/routes/patientAPI"));
