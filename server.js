@@ -26,6 +26,7 @@ app.get("/", (request, response) => {
 app.use("/api/user", require("./src/routes/userAPI"));
 app.use("/api/doctor", require("./src/routes/doctorAPI"));
 app.use("/api/patient", require("./src/routes/patientAPI"));
+app.use("/api/ticket", require("./src/routes/ticketAPI"));
 app.use;
 app.listen(PORT, () => {
   console.log("App running on port: " + PORT);
