@@ -1,6 +1,5 @@
 const mysql = require("mysql2/promise");
 const config = require("../config/configDatabase");
-const e = require("express");
 
 const createDoctor = async (
     doctorName,
