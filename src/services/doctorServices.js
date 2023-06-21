@@ -132,9 +132,83 @@ const getSpecialtyList = async () => {
     }
 };
 
+const getDoctorSchedule = async (
+    doctorID,
+    doctorSpecialtyID,
+    doctorScheduleDate,
+) => {
+    try {
+        const connection = await mysql.createConnection(config);
+        const [data] = await connection.execute(`CALL getDoctorSchedule(?, ?, ?)`,
+        [doctorID, doctorSpecialtyID, doctorScheduleDate]);
+        connection.end();
+
+        if (data && data.length > 0) {
+            const doctorScheduleData = data.slice(0, -1).flat();
+            return {
+                EM: "Get doctor schedule success",
+                EC: 1,
+                DT: doctorScheduleData,
+            }
+        }
+        else {
+            return {
+                EM: "Get doctor schedule failed",
+                EC: 0,
+                DT: [],
+            }
+        }
+    } catch (error) {
+        console.log("Get doctor schedule error: " + error);
+        return {
+            EM: "Error from service",
+            EC: -1,
+            DT: "",
+        }
+    }
+};
+
+const getDoctorsBySpecialtyAndDate = async (
+    doctorSpecialtyID,
+    doctorScheduleDate,
+) => {
+    try {
+        const connection = await mysql.createConnection(config);
+        const [data] = await connection.execute(`CALL getDoctorsBySpecialtyAndDate(?, ?)`,
+        [doctorSpecialtyID, doctorScheduleDate]);
+        connection.end();
+
+        if (data && data.length > 0) {
+            const doctorListData = data.slice(0, -1).flat();
+            return {
+                EM: "Get doctor list success",
+                EC: 1,
+                DT: doctorListData,
+            }
+        }
+        else {
+            return {
+                EM: "Get doctor list failed",
+                EC: 0,
+                DT: [],
+            }
+        }
+    } catch (error) {
+        console.log("Get doctor list error: " + error);
+        return {
+            EM: "Error from service",
+            EC: -1,
+            DT: "",
+        }
+    }
+};
+
 module.exports = {
     createDoctor,
     createDoctorSchedule,
     getDoctorList,
     getSpecialtyList,
+    getDoctorSchedule,
+    getDoctorsBySpecialtyAndDate,
+    
 };
