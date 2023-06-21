@@ -184,7 +184,7 @@ const checkLogin = async (userName, userPassword) => {
         const data = rows.slice(0, -1).flat();
         // a = data.slice(0, -1);
         // nestedArray = a.flat();
-        console.log(data);
+        // console.log(data);
         if (data && data.length > 0) {
             for (let i = 0; i < data.length; i++) {
               
