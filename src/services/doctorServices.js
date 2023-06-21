@@ -101,6 +101,37 @@ const getDoctorList = async () => {
     }
 };
 
+const getDoctorListPagination = async (start_index, page_size) => {
+    try {
+        const connection = await mysql.createConnection(config);
+        const [data] = await connection.execute(`CALL getDoctorSpecialtiesPagination(? ,?)`, [start_index, page_size]);
+        connection.end();
+
+        if (data && data.length > 0) {
+            const doctorListData = data.slice(0, -1).flat();
+            return {
+                EM: "Get doctor specialty success",
+                EC: 1,
+                DT: doctorListData,
+            }
+        }
+        else {
+            return {
+                EM: "Get doctor specialty failed",
+                EC: 0,
+                DT: [],
+            }
+        }
+     } catch (error) {
+        console.log("Get doctor specialty error: " + error);
+        return {
+            EM: "Error from service",
+            EC: -1,
+            DT: "",
+        }
+    }
+};
+
 const getSpecialtyList = async () => {
     try {
         const connection = await mysql.createConnection(config);
@@ -203,12 +234,81 @@ const getDoctorsBySpecialtyAndDate = async (
     }
 };
 
+const getListDate = async () => {
+    try {
+        const connection = await mysql.createConnection(config);
+        const [data] = await connection.execute(`CALL getListDate()`);
+        connection.end();
+
+        if (data && data.length > 0) {
+            const listDateData = data.slice(0, -1).flat();
+            return {
+                EM: "Get list date success",
+                EC: 1,
+                DT: listDateData,
+            }
+        }
+        else {
+            return {
+                EM: "Get list date failed",
+                EC: 0,
+                DT: [],
+            }
+        }
+    } catch (error) {
+        console.log("Get list date error: " + error);
+        return {
+            EM: "Error from service",
+            EC: -1,
+            DT: "",
+        }
+    }
+};
+
+const getDoctorWorkingDates = async (
+    doctorID,
+    doctorSpecialtyID,
+) => {
+    try {
+        const connection = await mysql.createConnection(config);
+
+        const [data] = await connection.execute(`CALL getDoctorWorkingDates(?, ?)`,
+        [doctorID, doctorSpecialtyID]);
+        connection.end();
+
+        if (data && data.length > 0) {
+            const doctorWorkingDatesData = data.slice(0, -1).flat();
+            return {
+                EM: "Get doctor working dates success",
+                EC: 1,
+                DT: doctorWorkingDatesData,
+            }
+        }
+        else {
+            return {
+                EM: "Get doctor working dates failed",
+                EC: 0,
+                DT: [],
+            }
+        }
+    } catch (error) {
+        console.log("Get doctor working dates error: " + error);
+        return {
+            EM: "Error from service",
+            EC: -1,
+            DT: "",
+        }
+    }
+};
+
 module.exports = {
     createDoctor,
     createDoctorSchedule,
     getDoctorList,
+    getDoctorListPagination,
     getSpecialtyList,
     getDoctorSchedule,
     getDoctorsBySpecialtyAndDate,
-    
+    getListDate,
+    getDoctorWorkingDates,
 };
