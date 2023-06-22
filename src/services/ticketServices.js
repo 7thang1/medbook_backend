@@ -40,7 +40,7 @@ const createTicket = async (
     }
 };
 
-const getInforMedicalTicket = async () => {
+const getMedicalTicketList = async () => {
     try {
         const connection = await mysql.createConnection(config);
         const [data] = await connection.execute(`CALL getInforMedicalTicket()`);
@@ -71,8 +71,73 @@ const getInforMedicalTicket = async () => {
     }
 };
 
+const getMedicalTicketDetails = async (ticketID) => {
+    try {
+        const connection = await mysql.createConnection(config);
+        const [data] = await connection.execute(`CALL getInforMedicalTicketDetails(?)`, [ticketID]);
+        connection.end();
+
+        if (data && data.length > 0) {
+            const ticketData = data.slice(0, -1).flat();
+            return {
+                EM: "Get ticket details success",
+                EC: 1,
+                DT: ticketData,
+            }
+        }
+        else {
+            return {
+                EM: "Get ticket details failed",
+                EC: 0,
+                DT: [],
+            }
+        }
+    } catch (error) {
+        console.log("Get ticket details error: " + error);
+        return {
+            EM: "Error from service",
+            EC: -1,
+            DT: "",
+        }
+    }
+}
+
+const getMedicalTicketsByUserID = async (userID) => {
+    try {
+        const connection = await mysql.createConnection(config);
+        const [data] = await connection.execute(`CALL getInforMedicalTicketByUserID(?)`, [userID]);
+        connection.end();
+
+        if (data && data.length > 0) {
+            const ticketData = data.slice(0, -1).flat();
+            return {
+                EM: "Get ticket list success",
+                EC: 1,
+                DT: ticketData,
+            }
+        }
+        else {
+            return {
+                EM: "Get ticket list failed",
+                EC: 0,
+                DT: [],
+            }
+        }
+    } catch (error) {
+        console.log("Get ticket list error: " + error);
+        return {
+            EM: "Error from service",
+            EC: -1,
+            DT: "",
+        }
+    }
+};
+
 
 module.exports = {
     createTicket,
-    getInforMedicalTicket,
+    getMedicalTicketList,
+    getMedicalTicketDetails,
+    getMedicalTicketsByUserID,
+    
 }

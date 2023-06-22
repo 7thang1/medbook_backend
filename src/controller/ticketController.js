@@ -1,6 +1,9 @@
 const {
     createTicket,
-    getInforMedicalTicket,
+    getMedicalTicketList,
+    getMedicalTicketDetails,
+    getMedicalTicketsByUserID,
+
 } = require("../services/ticketServices");
 
 const CreateTicket = async (req, res) => {
@@ -39,9 +42,9 @@ const CreateTicket = async (req, res) => {
     }
 };
 
-const GetInforMedicalTicket = async (req, res) => {
+const GetMedicalTicketList = async (req, res) => {
     try {
-        const data = await getInforMedicalTicket();
+        const data = await getMedicalTicketList();
 
         if (data && data.EC == 1) {
             res.status(200).json({
@@ -67,7 +70,67 @@ const GetInforMedicalTicket = async (req, res) => {
     }
 };
 
+const GetMedicalTicketDetails = async (req, res) => {
+    try {
+        const ticketID = req.params.ticketID;
+        const data = await getMedicalTicketDetails(ticketID);
+
+        if (data && data.EC == 1) {
+            res.status(200).json({
+                EM: data.EM,
+                EC: data.EC,
+                DT: data.DT,
+            });
+        }
+        if (data && data.EC != 1) {
+            res.status(200).json({
+                EM: data.EM,
+                EC: data.EC,
+                DT: data.DT,
+            });
+        }
+    } catch (error) {
+        console.log(error);
+        res.status(500).json({
+            EM: "Error from server",
+            EC: -1,
+            DT: "",
+        });
+    }
+};
+
+const GetMedicalTicketsByUserID = async (req, res) => {
+    try {
+        const userID = req.params.userID;
+        const data = await getMedicalTicketsByUserID(userID);
+
+        if (data && data.EC == 1) {
+            res.status(200).json({
+                EM: data.EM,
+                EC: data.EC,
+                DT: data.DT,
+            });
+        }
+        if (data && data.EC != 1) {
+            res.status(200).json({
+                EM: data.EM,
+                EC: data.EC,
+                DT: data.DT,
+            });
+        }
+    } catch (error) {
+        console.log(error);
+        res.status(500).json({
+            EM: "Error from server",
+            EC: -1,
+            DT: "",
+        });
+    }
+};
+
 module.exports = {
     CreateTicket,
-    GetInforMedicalTicket,
+    GetMedicalTicketList,
+    GetMedicalTicketDetails,
+    GetMedicalTicketsByUserID,
 };
