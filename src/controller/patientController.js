@@ -137,7 +137,7 @@ const getListPatientProfiles = async (req, res) => {
 const handleUpdatePatientProfile = async (req, res) => {
     try {
         const { profile_id, full_name, dob, gender, phone_number, occupation, ethnicity } = req.body;
-        const data = await handleUpdatePatientProfile(profile_id, full_name, dob, gender, phone_number, occupation, ethnicity);
+        const data = await updatePatientProfile(profile_id, full_name, dob, gender, phone_number, occupation, ethnicity);
         if (data && +data.EC == 1) {
             return res.status(200).json({
                 EM: data.EM,

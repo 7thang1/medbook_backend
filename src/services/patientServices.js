@@ -96,7 +96,7 @@ const deletePatientProfile = async (patientID, userID) => {
 const getPatientProfilesList = async () => {
     try {
         const connection = await mysql.createConnection(config);
-        const [data] = await connection.query(`CALL getPatientProfilesList()`);
+        const [data] = await connection.query(`CALL getAllPatientProfiles()`);
         connection.end();
         if (data && data.length > 0) {
             const patientProfilesListData = data.slice(0, -1).flat();
