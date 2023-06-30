@@ -15,7 +15,7 @@ const {
 } = require("../controller/userController");
 
 router.route("/register").post(createUser);                     //1
-router.route("/usercheck").get(checkUserExists);                //2
+router.route("/usercheck/:username").get(checkUserExists);                //2
 router.route("/login").post(loginUser);                         //3
 router.route("/get/list").get(getAllUser);                      //4
 router.route("/get/login").get(getInforLogin);                  //5

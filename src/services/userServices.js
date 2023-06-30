@@ -43,7 +43,7 @@ const createNewUser = async (
         } else {
             return {
                 EM: "Create user fail",
-                EC: 0,
+                EC: 2,
             };
         }
     } catch (error) {

@@ -125,7 +125,7 @@ const getPatientProfilesList = async () => {
 const updatePatientProfile = async (profileID, fullName, dateOfBirth, gender, phoneNum, occupation, ethnicity) => {
     try {
         const connection = await mysql.createConnection(config);
-        const data = await connection.execute(`CALL updatePatientProfile('${profileID}', '${fullName}', '${dateOfBirth}', '${gender}', '${phoneNum}', '${occupation}', '${ethnicity}'`);
+        const data = await connection.execute(`CALL updatePatientProfile('${profileID}', '${fullName}', '${dateOfBirth}', '${gender}', '${phoneNum}', '${occupation}', '${ethnicity}')`);
         connection.end();
         if (data) {
             return {
@@ -149,9 +149,42 @@ const updatePatientProfile = async (profileID, fullName, dateOfBirth, gender, ph
     }
 };
 
+const getPatientProfileDetails = async (profileID) => {
+    try {
+        const connection = await mysql.createConnection(config);
+        const [data] = await connection.query(`CALL getPatientDetails('${profileID}')`);
+        connection.end();
+
+        if (data && data.length > 0){
+            const profileData = data.slice(0, -1).flat();
+
+            return {
+                EM: 'Get profile details success',
+                EC: 1,
+                DT: profileData
+            }
+        }
+        else {
+            return {
+                EM: 'Get profile details fail',
+                EC: 0,
+                DT: []
+            }
+        }
+    } catch (error){
+        console.log('Get profile details error:'+ error);
+        return {
+            EM: 'Error from service',
+            EC: -1,
+            DT: ""
+        }
+    }
+};
+
 module.exports = {
     createPatientProfile,
     getPatientProfileList,
+    getPatientProfileDetails,
     deletePatientProfile,
     getPatientProfilesList,
     updatePatientProfile,

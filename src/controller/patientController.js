@@ -1,6 +1,7 @@
 const {
     createPatientProfile,
     getPatientProfileList,
+    getPatientProfileDetails,
     deletePatientProfile,
     getPatientProfilesList,
     updatePatientProfile,
@@ -74,6 +75,35 @@ const getListPatient = async (req, res) => {
             EM: "Error from server",
             EC: -1,
             DT: "",
+        });
+    }
+};
+
+const GetPatientProfileDetails = async (req, res) => {
+    try {
+        const profileID = req.params.profileID;
+        const data = await getPatientProfileDetails(profileID);
+
+        if (data && +data.EC == 1) {
+            return res.status(200).json({
+                EM: data.EM,
+                EC: data.EC,
+                DT: data.DT
+            });
+        }
+        if (data && +data.EC != 1){
+            return res.status(200).json({
+                EM: data.EM,
+                EC: data.EC,
+                DT: data.DT
+            });
+        }
+    } catch (error){
+        console.log(error);
+        return res.status(500).json({
+            EM: "Error from server",
+            EC: -1,
+            DT: ""
         });
     }
 };
@@ -165,6 +195,7 @@ const handleUpdatePatientProfile = async (req, res) => {
 module.exports = {
     createPatient,
     getListPatient,
+    GetPatientProfileDetails,
     handleDeletePatientProfile,
     getListPatientProfiles,
     handleUpdatePatientProfile,

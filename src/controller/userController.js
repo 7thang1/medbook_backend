@@ -48,7 +48,7 @@ const createUser = async (req, res) => {
 
 const checkUserExists = async (req, res) => {
     try {
-        const { username } = req.body;
+        const username = req.params.user_name;
         const result = await checkUser(username);
         
         res.status(200).json(result);
