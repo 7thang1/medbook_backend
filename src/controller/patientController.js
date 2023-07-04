@@ -55,27 +55,12 @@ const getListPatient = async (req, res) => {
     try {
         const user_id = req.params.user_id;
         const data = await getPatientProfileList(user_id);
-        if (data && +data.EC == 1) {
-            return res.status(200).json({
-                EM: data.EM,
-                EC: data.EC,
-                DT: data.DT
-           });
-        }
-        if (data && +data.EC != 1) {
-            return res.status(200).json({
-                EM: data.EM,
-                EC: data.EC,
-                DT: data.DT,
-            });
+        if (data) {
+            return res.status(200).json(data);
         }
     } catch (error) {
         console.log(error);
-        return res.status(500).json({
-            EM: "Error from server",
-            EC: -1,
-            DT: "",
-        });
+        return res.status(500).json("");
     }
 };
 

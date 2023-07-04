@@ -47,25 +47,13 @@ const getPatientProfileList = async (user_id) => {
         connection.end();
         if (data && data.length > 0) {
             const patientProfilesListData = data.slice(0, -1).flat();
-            return {
-                EM: "Get patient profile list success",
-                EC: 1,
-                DT: patientProfilesListData,
-            };
+            return patientProfilesListData;
         } else {
-            return {
-                EM: "Get patient profile list fail",
-                EC: 0,
-                DT: "",
-            };
+            return [];
         }
     } catch (error) {
         console.log("Get patient profile list error: " + error);
-        return {
-            EM: "Get patient profile list fail",
-            EC: -1,
-            DT: "",
-        };
+        return "";
     }
 };
 
