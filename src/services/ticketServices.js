@@ -1,4 +1,4 @@
-const mysql = require("mysql2");
+const mysql = require("mysql2/promise");
 const config = require("../config/configDatabase");
 
 const createTicket = async (
@@ -43,7 +43,7 @@ const createTicket = async (
 const getMedicalTicketList = async () => {
     try {
         const connection = await mysql.createConnection(config);
-        const [data] = await connection.execute(`CALL getInforMedicalTicket()`);
+        const [data] = await connection.query(`CALL getInforMedicalTicket()`);
         connection.end();
 
         if (data && data.length > 0) {
@@ -74,7 +74,7 @@ const getMedicalTicketList = async () => {
 const getMedicalTicketDetails = async (ticketID) => {
     try {
         const connection = await mysql.createConnection(config);
-        const [data] = await connection.execute(`CALL getInforMedicalTicketDetails(?)`, [ticketID]);
+        const [data] = await connection.query(`CALL getMedicalTicketDetails(?)`, [ticketID]);
         connection.end();
 
         if (data && data.length > 0) {
@@ -105,7 +105,7 @@ const getMedicalTicketDetails = async (ticketID) => {
 const getMedicalTicketsByUserID = async (userID) => {
     try {
         const connection = await mysql.createConnection(config);
-        const [data] = await connection.execute(`CALL getInforMedicalTicketByUserID(?)`, [userID]);
+        const [data] = await connection.execute(`CALL getMedicalTicketsByUserID(?)`, [userID]);
         connection.end();
 
         if (data && data.length > 0) {
