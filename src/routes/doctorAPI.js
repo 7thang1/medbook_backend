@@ -19,7 +19,7 @@ router.route("/get/list").get(GetDoctorList);
 router.route("/get/listpagination").get(GetDoctorListPagination);
 router.route("/get/specialtylist").get(GetSpecialtyList);
 router.route("/get/schedule/:doctorID/:doctorSpecialtyID/:doctorScheduleDate").get(GetDoctorSchedule);
-router.route("/get/schedulebydate").get(GetDoctorsBySpecialtyAndDate);
+router.route("/get/schedulebydate/:doctorSpecialtyID/:doctorScheduleDate").get(GetDoctorsBySpecialtyAndDate);
 router.route("/get/listdate").get(GetListDate);
 router.route("/get/workingdates/:doctorID/:doctorSpecialtyID").get(GetDoctorWorkingDates);
 

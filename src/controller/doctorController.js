@@ -194,10 +194,8 @@ const GetDoctorSchedule = async (req, res) => {
 
 const GetDoctorsBySpecialtyAndDate = async (req, res) => {
     try {
-        const {
-            doctorSpecialtyID,
-            doctorScheduleDate,
-        } = req.body;
+        const doctorSpecialtyID = req.params.doctorSpecialtyID;
+        const doctorScheduleDate = req.params.doctorScheduleDate;
 
         const data = await getDoctorsBySpecialtyAndDate(doctorSpecialtyID, doctorScheduleDate);
 
