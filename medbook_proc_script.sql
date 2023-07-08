@@ -309,9 +309,15 @@ DELIMITER ;
 DELIMITER //
 CREATE PROCEDURE getMedicalTicketsByUserID(IN p_user_id INT)
 BEGIN
-    SELECT t.ticket_id as ticketID, t.profile_id as patientProfileID, p.full_name as patientFullname, t.ticket_status as ticketStatus
+SELECT t.ticket_id as ticketID, t.profile_id as patientprofileID, p.full_name AS patientFullname, d.full_name AS doctorName, s.name AS specialtyName,
+           r.name AS roomName, dsc.date_value as placedDate, ts.timeslot_name as timeslot, t.ticket_status as ticketStatus, t.price as ticketPrice
     FROM medical_ticket t
+    JOIN doctor d ON t.doctor_id = d.doctor_id
     JOIN patient_profile p ON t.profile_id = p.profile_id
+    JOIN specialty s ON t.specialty_id = s.specialty_id
+    JOIN room r ON t.room_id = r.room_id
+    JOIN date dsc ON t.date_id = dsc.date_id
+    JOIN timeslot ts ON t.timeslot_id = ts.timeslot_id
     JOIN user u ON p.user_id = u.user_id
     WHERE u.user_id = p_user_id;
 END //
