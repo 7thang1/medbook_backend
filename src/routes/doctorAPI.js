@@ -14,7 +14,6 @@ const {
 
 router.route("/createdoctor").post(CreateDoctor);
 router.route("/createdoctorschedule").post(CreateDoctorSchedule);
-// router.route("/get/:id").get(GetDoctorInfor);
 router.route("/get/list").get(GetDoctorList);
 router.route("/get/listpagination").get(GetDoctorListPagination);
 router.route("/get/specialtylist").get(GetSpecialtyList);
