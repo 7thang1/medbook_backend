@@ -9,7 +9,7 @@ This is a repo to store my Backend for Medbook App - The courses project
 <img src="https://github.com/7thang1/medbook_backend/assets/80353511/076f269d-5222-4ecf-a62b-5a3afea17932" alt="Medbook Database ERD" width="1000" />
 
 # Frameworks & Tools
-<img alt="Alt text" src="<https://img.shields.io/badge/Node.js-339933.svg?style=for-the-badge&logo=nodedotjs&logoColor=white>"/>
+![Node.js](https://img.shields.io/badge/Node.js-339933.svg?style=for-the-badge&logo=nodedotjs&logoColor=white)
 # Deployment Enviroment
 - Ubuntu Server 20.04 LTS on Microsoft Azure
 - NPM, NVM, Mysql-server, phpMyAdmin
