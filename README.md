@@ -1,7 +1,7 @@
 # medbook_backend
-This is a repo to store my Backend for Medbook App - The courses project
+This is a repo to store my Backend for Medbook App - The specialized project.
 - This project based on NodeJS with Expressjs Framework, MySQL is DBMS solution.
-- Postman used for API testing tools.
+- Postman used for API testing tool.
 
 # SQL ERD
 
